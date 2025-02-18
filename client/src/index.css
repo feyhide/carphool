@@ -5,3 +5,7 @@
 .primary {
     font-family: "DM Sans", serif;
 }
+
+body{
+    overflow-x: hidden;
+}

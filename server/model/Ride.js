@@ -8,20 +8,15 @@ const rideSchema = new mongoose.Schema(
       required: true,
     },
     vehicle: {
-      type: String,
-      required: true,
+      name: { type: String, required: true },
+      type: { type: String, enum: ["bike", "car"], required: true },
     },
     description: {
       type: String,
-      required: true,
     },
-    startPoint: {
+    pickUpPoint: {
       location: {
         type: String,
-        required: true,
-      },
-      arrivalTime: {
-        type: Date,
         required: true,
       },
       departureTime: {
@@ -32,17 +27,9 @@ const rideSchema = new mongoose.Schema(
         type: String,
       },
     },
-    endPoint: {
+    destinationPoint: {
       location: {
         type: String,
-        required: true,
-      },
-      arrivalTime: {
-        type: Date,
-        required: true,
-      },
-      departureTime: {
-        type: Date,
         required: true,
       },
       description: {
@@ -51,15 +38,10 @@ const rideSchema = new mongoose.Schema(
     },
     midStops: [
       {
+        _id: false,
         location: {
           type: String,
           required: true,
-        },
-        arrivalTime: {
-          type: Date,
-        },
-        departureTime: {
-          type: Date,
         },
         description: {
           type: String,
@@ -72,12 +54,14 @@ const rideSchema = new mongoose.Schema(
     },
     passengers: [
       {
+        _id: false,
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
     ],
     requestedUsers: [
       {
+        _id: false,
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },

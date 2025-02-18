@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import Redis from "ioredis";
 import cors from "cors";
 import authRouter from "./route/Auth.js";
+import rideRouter from "./route/Ride.js";
+import userRouter from "./route/User.js";
 
 dotenv.config();
 
@@ -41,6 +43,8 @@ app.use(
 );
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/ride", rideRouter);
+app.use("/api/v1/user", userRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

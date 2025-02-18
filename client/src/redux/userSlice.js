@@ -14,9 +14,14 @@ const userSlice = createSlice({
     resetUser: (state) => {
       state.currentUser = null;
     },
+    addCurrencyPreference: (state, action) => {
+      if (state.currentUser) {
+        state.currentUser.currencyPreference = action.payload;
+      }
+    },
   },
 });
 
-export const { addUser, resetUser } = userSlice.actions;
+export const { addUser, resetUser, addCurrencyPreference } = userSlice.actions;
 
 export default userSlice.reducer;

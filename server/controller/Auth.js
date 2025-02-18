@@ -186,7 +186,7 @@ export const verifyOTP = async (req, res) => {
   }
 };
 
-export const signin = async (req, res, next) => {
+export const signin = async (req, res) => {
   const { email, password } = req.body;
 
   const { error, value } = validateSignin(req.body);

@@ -20,6 +20,11 @@ const App = () => {
         <Route path="/sign-up" element={<AuthPage page={"signUp"} />} />
         <Route path="/sign-in" element={<AuthPage page={"signIn"} />} />
         <Route path="/reset-password" element={<AuthPage page={"reset"} />} />
+        <Route
+          path="/add-currency-preference"
+          element={<AuthPage page={"currency"} />}
+        />
+
         <Route element={<LayoutWithHeader />}>
           <Route path="/" element={<Home />} />
         </Route>

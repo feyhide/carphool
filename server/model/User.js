@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    currencyPreference: {
+      type: String,
+    },
     password: {
       type: String,
       required: true,
@@ -52,6 +55,12 @@ const userSchema = new mongoose.Schema(
           type: String,
           enum: ["driver", "passenger"],
         },
+      },
+    ],
+    ridesCreated: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Ride",
       },
     ],
     requestedRides: [
