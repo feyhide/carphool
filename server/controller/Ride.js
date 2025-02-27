@@ -10,6 +10,7 @@ import { validateCreateRide } from "../utils/validator.js";
 
 export const createRide = async (req, res) => {
   try {
+    console.log(req.body);
     const { error, value } = validateCreateRide(req.body);
 
     if (error) {
@@ -92,7 +93,9 @@ export const getRides = async (req, res) => {
     let rides = await Ride.find(filterCriteria)
       .skip(skip)
       .limit(limitNumber)
-      .select("-requestedUsers -passengers")
+      .select(
+        "-requestedUsers -passengers -midStops -city -description -driverId._id"
+      )
       .populate("driverId", "fullname avatar")
       .sort({ createdAt: -1 });
 
@@ -103,7 +106,6 @@ export const getRides = async (req, res) => {
       ...ride.toObject(),
       _id: encrypt(ride._id.toString()),
       driverId: {
-        _id: encrypt(ride.driverId._id.toString()),
         fullname: ride.driverId.fullname,
       },
     }));

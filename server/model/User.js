@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     fullname: {
       type: String,
       required: true,
@@ -42,8 +37,11 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
     },
     liveLocation: {
-      type: String,
-      default: "",
+      type: {
+        lat: { type: Number, required: true },
+        lon: { type: Number, required: true },
+      },
+      default: { lat: 0, lon: 0 },
     },
     pastRides: [
       {

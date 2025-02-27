@@ -15,7 +15,6 @@ const signUpSchema = Joi.object({
       "string.empty": "Password is required.",
     }),
   fullname: Joi.string().min(3).required(),
-  username: Joi.string().min(3).required(),
 });
 
 const signInpSchema = Joi.object({
@@ -51,57 +50,59 @@ const resetPasswordSchema = Joi.object({
 const createRideSchema = Joi.object({
   vehicle: Joi.object({
     name: Joi.string().trim().required().messages({
-      "string.empty": "Vehicle is required.",
+      "string.empty": "Vehicle name is required.",
     }),
-    type: Joi.string().trim().required().messages({
-      "string.empty": "Vehicle Type is required.",
+    type: Joi.string().valid("bike", "car").required().messages({
+      "string.empty": "Vehicle type is required.",
+      "any.only": "Vehicle type must be 'bike' or 'car'.",
     }),
   }).required(),
 
   description: Joi.string().trim().optional().messages({
-    "string.empty": "Description is required.",
+    "string.empty": "Description is optional.",
   }),
 
-  pickUpPoint: Joi.object({
-    location: Joi.string().trim().required().messages({
-      "string.empty": "Pickup point location is required.",
-    }),
-    departureTime: Joi.date().iso().required().messages({
-      "date.base": "Pickup point departure time must be a valid date.",
-      "any.required": "Pickup point departure time is required.",
-    }),
-    description: Joi.string().trim().allow("").optional(),
-  }).required(),
+  city: Joi.string().trim().required().messages({
+    "string.empty": "City is required.",
+  }),
 
-  destinationPoint: Joi.object({
-    location: Joi.string().trim().required().messages({
-      "string.empty": "Destination point location is required.",
-    }),
-    description: Joi.string().trim().allow("").optional(),
-  }).required(),
+  pickUpPoint: Joi.string().trim().required().messages({
+    "string.empty": "Pick-up location is required.",
+  }),
+
+  pickUpTime: Joi.date().iso().required().messages({
+    "date.base": "Pick-up time must be a valid date.",
+    "any.required": "Pick-up time is required.",
+  }),
+
+  destinationPoint: Joi.string().trim().required().messages({
+    "string.empty": "Destination location is required.",
+  }),
 
   midStops: Joi.array()
     .items(
-      Joi.object({
-        location: Joi.string().trim().required().messages({
-          "string.empty": "Mid stop location is required.",
-        }),
-        description: Joi.string().trim().allow("").optional(),
+      Joi.string().trim().optional().messages({
+        "string.empty": "Mid stop location is required.",
       })
     )
     .optional(),
 
   seatsAvailable: Joi.number().integer().min(1).required().messages({
     "number.base": "Seats available must be a number.",
-    "number.min": "At least 1 seat must be available.",
+    "number.min": "Seats available must be at least 1.",
     "any.required": "Seats available is required.",
   }),
 
-  price: Joi.number().min(0).required().messages({
-    "number.base": "Price must be a number.",
-    "number.min": "Price cannot be negative.",
-    "any.required": "Price is required.",
-  }),
+  price: Joi.object({
+    amount: Joi.number().min(0).required().messages({
+      "number.base": "Price amount must be a number.",
+      "number.min": "Price amount cannot be negative.",
+      "any.required": "Price amount is required.",
+    }),
+    currency: Joi.string().trim().required().messages({
+      "string.empty": "Currency is required.",
+    }),
+  }).required(),
 });
 
 const validateCreateRide = validator(createRideSchema);

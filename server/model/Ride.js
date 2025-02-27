@@ -14,38 +14,27 @@ const rideSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    city: {
+      type: String,
+      required: true,
+    },
     pickUpPoint: {
-      location: {
-        type: String,
-        required: true,
-      },
-      departureTime: {
-        type: Date,
-        required: true,
-      },
-      description: {
-        type: String,
-      },
+      type: String,
+      required: true,
+    },
+    pickUpTime: {
+      type: Date,
+      required: true,
     },
     destinationPoint: {
-      location: {
-        type: String,
-        required: true,
-      },
-      description: {
-        type: String,
-      },
+      type: String,
+      required: true,
     },
     midStops: [
       {
         _id: false,
-        location: {
-          type: String,
-          required: true,
-        },
-        description: {
-          type: String,
-        },
+        type: String,
+        required: true,
       },
     ],
     seatsAvailable: {
@@ -72,9 +61,8 @@ const rideSchema = new mongoose.Schema(
       enum: ["full", "close", "open"],
     },
     price: {
-      type: Number,
-      required: true,
-      min: 0,
+      amount: { type: Number, required: true, min: 0 },
+      currency: { type: String, required: true },
     },
   },
   { timestamps: true }

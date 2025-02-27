@@ -57,7 +57,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const signup = async (req, res) => {
-  const { email, password, username, fullname } = req.body;
+  const { email, password, fullname } = req.body;
   const { error, value } = validateSignup(req.body);
 
   if (error) {
@@ -83,7 +83,7 @@ export const signup = async (req, res) => {
     pipeline.setex(
       tempUserKey,
       600,
-      JSON.stringify({ fullname, username, email, hashedPassword })
+      JSON.stringify({ fullname, email, hashedPassword })
     );
     await pipeline.exec();
 
@@ -133,14 +133,12 @@ export const verifyOTP = async (req, res) => {
 
     const {
       fullname,
-      username,
       email: userEmail,
       hashedPassword,
     } = JSON.parse(tempUserData);
 
     const newUser = new User({
       fullname,
-      username,
       email: userEmail,
       password: hashedPassword,
     });
@@ -174,9 +172,6 @@ export const verifyOTP = async (req, res) => {
     );
   } catch (error) {
     console.error("OTP Verification Error:", error);
-    if (error.code === 11000) {
-      return sendError(res, "Username is taken.", null, 500);
-    }
     return sendError(
       res,
       "An error occurred during OTP verification.",

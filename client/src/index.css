@@ -6,6 +6,10 @@
     font-family: "DM Sans", serif;
 }
 
+html,body{
+    height: --webkit-fill-available;
+}
+
 body{
     overflow-x: hidden;
 }

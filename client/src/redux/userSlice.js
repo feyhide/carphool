@@ -19,9 +19,15 @@ const userSlice = createSlice({
         state.currentUser.currencyPreference = action.payload;
       }
     },
+    setUserLocation: (state, action) => {
+      if (state.currentUser) {
+        state.currentUser.liveLocation = action.payload;
+      }
+    },
   },
 });
 
-export const { addUser, resetUser, addCurrencyPreference } = userSlice.actions;
+export const { setUserLocation, addUser, resetUser, addCurrencyPreference } =
+  userSlice.actions;
 
 export default userSlice.reducer;

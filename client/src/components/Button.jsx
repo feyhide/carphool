@@ -231,9 +231,9 @@ const SmallButton = ({
           style={{
             top: `0px`,
             left: `0px`,
+            backgroundColor: shouldShow ? `${bgHexColor}` : `transparent`,
           }}
           animate={{
-            backgroundColor: shouldShow ? `${bgHexColor}` : `transparent`,
             scale: isHover ? 50 : 1,
           }}
         ></motion.div>

@@ -22,7 +22,6 @@ const AuthPage = ({ page }) => {
   const [otpState, setotpState] = useState(false);
   const [formData, setFormData] = useState({
     fullname: "",
-    username: "",
     email: "",
     password: "",
   });
@@ -44,7 +43,6 @@ const AuthPage = ({ page }) => {
       const filteredFormData = { ...formData };
       if (page === "signIn") {
         delete filteredFormData.fullname;
-        delete filteredFormData.username;
       }
 
       const { data } = await api.post(DOMAIN + serverRoute, filteredFormData, {
@@ -75,14 +73,11 @@ const AuthPage = ({ page }) => {
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
 
-    const { email, password, username, fullname } = formData;
+    const { email, password, fullname } = formData;
 
     if (page === "signup") {
       if (fullname.length < 3) {
         return toast.error("Name must be at least 3 letters long.");
-      }
-      if (!username) {
-        return toast.error("Username is required.");
       }
     }
     if (!email.length) {
@@ -137,7 +132,6 @@ const AuthPage = ({ page }) => {
       if (data.success) {
         setFormData({
           fullname: "",
-          username: "",
           email: "",
           password: "",
         });
@@ -156,7 +150,6 @@ const AuthPage = ({ page }) => {
   useEffect(() => {
     setFormData({
       fullname: "",
-      username: "",
       email: "",
       password: "",
     });
@@ -234,15 +227,6 @@ const AuthPage = ({ page }) => {
                             value={formData.fullname}
                             type="text"
                             placeholder="Name"
-                          />
-                        </div>
-                        <div className="flex flex-col w-full">
-                          <Input
-                            name="username"
-                            onChange={handleChange}
-                            value={formData.username}
-                            type="text"
-                            placeholder="Username"
                           />
                         </div>
                       </>

@@ -7,13 +7,14 @@ import { DOMAIN } from "../utils/constant";
 import toast, { Toaster } from "react-hot-toast";
 import RideCard from "../components/RideCard";
 import Profile from "./Profile";
+import Create from "./Create";
 
 const Home = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [rides, setRides] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const { isProfileOpen } = useSelector((state) => state.sidebar);
+  const { isProfileOpen, isCreateOpen } = useSelector((state) => state.sidebar);
 
   const fetchRides = async () => {
     setLoading(true);
@@ -79,14 +80,14 @@ const Home = () => {
             {rides.length === 0 ? (
               <div className="w-full primary text-xl">No Rides Available</div>
             ) : (
-              rides.map((ride, index) => <RideCard key={index} ride={ride} />) // Use RideCard here
+              rides.map((ride, index) => <RideCard key={index} ride={ride} />)
             )}
           </div>
         )}
       </div>
       <div className="w-1/2 h-full py-10 flex items-center justify-end px-10">
         <div className="w-1/2 h-full rounded-xl overflow-hidden">
-          {isProfileOpen && <Profile />}
+          {isProfileOpen ? <Profile /> : isCreateOpen ? <Create /> : ""}
         </div>
       </div>
     </div>

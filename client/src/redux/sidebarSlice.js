@@ -21,7 +21,7 @@ const sidebarSlice = createSlice({
     },
     openProfile: (state, action) => {
       state.isProfileOpen = true;
-      state.isLocationBarOpen = false;
+      state.isCreateOpen = false;
       state.profileData.selectedProfile = action.payload;
     },
     closeProfile: (state) => {
@@ -34,9 +34,8 @@ const sidebarSlice = createSlice({
 
 export const {
   resetSidebar,
-  openLocationBar,
-  closeLocationBar,
-  setLocationData,
+  openCreate,
+  closeCreate,
   openProfile,
   closeProfile,
 } = sidebarSlice.actions;
